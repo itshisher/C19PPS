@@ -11,6 +11,18 @@
                 <button type="sumbit" name="submit">Log in</button>
             </div>
         </form>
+        <!--error messages or sign up messages are included here  -->
+        <?php
+            if(isset($_GET["error"])) {
+                if($_GET["error"] == "emptyinput") {
+                    echo "<p>Please fill all blanks!</p>";
+                }
+
+                else if($_GET["error"] == "wronglogin") {
+                    echo "<p>Incorrect login information, please enter again!</p>";
+                }
+            }
+        ?>
     </section>
 
 <?php

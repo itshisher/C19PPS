@@ -3,14 +3,14 @@
 // unless users click on sumbit button to sign up, otherwise they will be send back to the sign up web page
 if(isset($_POST["submit"])) {   
 
-    $name = $_POST["name"];
+    $name = $_POST["lName"];
     $email = $_POST["email"];
     $userName = $_POST["uid"];
     $password = $_POST["password"];
     $passwordRepeat = $_POST["passwordRepeat"];
 
     //include error handlers to catch potential problems users made
-    require_once 'dhb.php';
+    require_once 'dbh.php';
     require_once 'functions.php';
 
     if(emptyInputSignup($name, $email, $userName, $password, $passwordRepeat) !== false) {
@@ -28,10 +28,10 @@ if(isset($_POST["submit"])) {
         exit();
     }
 
-    // if(uidExists($connection, $userName, $email) !== false) {
-    //     header("location: ../PHP/signup.php?error=pwdnotmatch");
-    //     exit();
-    // }
+    if(uidExists($connection, $userName, $email) !== false) {
+        header("location: ../PHP/signup.php?error=usernametaken");
+        exit();
+    }
 
     createUser($connection, $name, $email, $userName, $password);
 
