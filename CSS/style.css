@@ -1,0 +1,84 @@
+nav {
+  width: 100%;
+  height: 60%;
+  background-color: rgb(37, 35, 35);
+}
+
+/* Make sure all the contents in the website stays within the same line*/
+.wrapper {
+  width: 1900px;
+  margin: 0 auto;
+}
+
+/* Applies styling to the immediate and nested offspring */
+nav .wrapper {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav ul li {
+  list-style: none;
+  float: left;
+}
+
+nav ul li a {
+  font-family: "Roboto", sans-serif;
+  font-size: 20px;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 0 60px;
+  text-transform: uppercase;
+}
+
+nav img {
+  width: 600px;
+  height: 220px;
+}
+
+section {
+  background-color: #fff;
+  width: 100%;
+  padding: 20px;
+}
+
+body {
+  background-color: #333333;
+}
+
+h1 {
+  font-size: 34px;
+  padding: auto;
+}
+
+h2 {
+  font-size: 32px;
+  padding: auto;
+}
+
+p {
+  font-size: 19px;
+}
+
+.signup-form {
+  text-align: center;
+  padding-bottom: 400px;
+}
+
+.signup-form form input {
+  width: 20%;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.signup-form form button {
+  text-align: center;
+  font-size: 28px;
+  margin-top: 20px;
+}
+
+.signup-form-style {
+  display: flexbox;
+  justify-content: center;
+}
