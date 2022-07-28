@@ -35,7 +35,7 @@ function pwdMatch($password, $passwordRepeat) {
 
 function uidExists($connection, $userName, $email) {
     $result;
-    $sql = "SELECT * FROM users WHERE usersUid = ? or usersEmail = ?;";
+    $sql = "SELECT * FROM ouc353_1.users WHERE usersUid = ? or usersEmail = ?;";
     // initialize a statement to use sql statements 
     $stmt = mysqli_stmt_init($connection);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
@@ -62,7 +62,7 @@ function uidExists($connection, $userName, $email) {
 }
 
 function createUser($connection, $name, $email, $userName, $password) {
-    $sql = "INSERT INTO users(UsersName, UsersEmail, UsersUID, UsersPwd) VALUES (?, ?, ?, ?);";
+    $sql = "INSERT INTO ouc353_1.users(UsersName, UsersEmail, UsersUID, UsersPwd) VALUES (?, ?, ?, ?);";
     //initialize a statment using the connection to the database
     $stmt = mysqli_stmt_init($connection);
     //check if it's possible to give database the information above 
