@@ -8,7 +8,7 @@
         
         <?php 
 
-            require_once 'dbh.php';
+            require_once 'includes/dbh.php';
             
             $sql = "SELECT cName FROM ouc353_1.Countries";
             $result = $connection->query($sql);

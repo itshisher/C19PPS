@@ -39,7 +39,7 @@ function uidExists($connection, $userName, $email) {
     // initialize a statement to use sql statements 
     $stmt = mysqli_stmt_init($connection);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
-        header("location: ../PHP/signup.php?error=stmtfailed");
+        header("location: ../signup.php?error=stmtfailed");
         exit();
     }
 
@@ -67,7 +67,7 @@ function createUser($connection, $name, $email, $userName, $password) {
     $stmt = mysqli_stmt_init($connection);
     //check if it's possible to give database the information above 
     if(!mysqli_stmt_prepare($stmt, $sql)) {
-        header("location: ../PHP/signup.php?error=stmtfailed");
+        header("location: ../signup.php?error=stmtfailed");
         exit();
     }
     //use function hashed password to provide more security
@@ -77,7 +77,7 @@ function createUser($connection, $name, $email, $userName, $password) {
     // execute the statement
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
-    header("location: ../PHP/signup.php?error=none");
+    header("location: ../signup.php?error=none");
     exit();
 }
 
@@ -98,7 +98,7 @@ function loginUser($connection, $userName, $password) {
     $uidExists = uidExists($connection, $userName, $userName);
 
     if($uidExists === false) {
-        header("location: ../PHP/login.php?error=wronglogin");
+        header("location: ../login.php?error=wronglogin");
         exit();
     }
 
@@ -109,7 +109,7 @@ function loginUser($connection, $userName, $password) {
 
     if($checkPwd === false) {  
         //wrong password
-        header("location: ../PHP/login.php?error=wronglogin");
+        header("location: ../login.php?error=wronglogin");
         exit();
     }
     else if($checkPwd === true) {
@@ -119,7 +119,7 @@ function loginUser($connection, $userName, $password) {
         $_SESSION["userid"] = $uidExists["usersID"];
         $_SESSION["useruid"] = $uidExists["UsersUID"];
         //successfully loged in, go to the main webpage
-        header("location: ../PHP/index.php");
+        header("location: ../index.php");
         exit();
     }
 }

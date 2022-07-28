@@ -4,7 +4,7 @@
     
     <section class="signup-form">
         <h2>Sign up</h2>
-        <form action="../includes/signup_inc.php" method="post">
+        <form action="includes/signup_inc.php" method="post">
             <div class="signup-form-style">
                 <input type="text" name="fName" placeholder="First name..."> <br>
                 <input type="text" name="lName" placeholder="Last name..."> <br>
