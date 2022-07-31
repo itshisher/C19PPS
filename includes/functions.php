@@ -163,3 +163,38 @@ function loginUser($connection, $userName, $password) {
     }
     
 }
+
+
+/**
+ * Displays the result of a SQL query as an HTML table.
+ *
+ * This table can be stylized through the qryres-{table|tr|th|td} CSS classes.
+ *
+ * $result The result of the query, as returned by mysqli::query.
+ * $headers A list of strings for the table headers (th) to be displayed.
+ */
+function display_qry_result($result, $headers) {
+    if ($result->num_rows == 0) {
+        echo '0 results';
+        return;
+    }
+
+    // Display result table
+    echo '<table class="qryres-table">';
+
+    // Display table headers
+    echo '<tr class="qryres-tr">';
+    foreach ($headers as $th)
+        echo '<th class="qryres-th">' . htmlspecialchars($th) . '</th>';
+    echo '</tr>';
+
+    // Display table body, the sql query result
+    while ($row = $result->fetch_assoc()) {
+        echo '<tr class="qryres-tr">';
+        foreach ($row as $td)
+            echo '<td class="qryres-td">' . htmlspecialchars($td) . '</td>';
+        echo '</tr>';
+    }
+
+    echo '</table>';
+}
