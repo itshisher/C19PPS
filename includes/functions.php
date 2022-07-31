@@ -1,8 +1,8 @@
 <?php
 
-function emptyInputSignup($name, $email, $userName, $password, $passwordRepeat) {
+function emptyInputSignup($fname, $lname, $citizenship, $email, $phone, $userName, $password, $passwordRepeat) {
     $result;
-    if(empty($name) || empty($email) || empty($userName) || empty($password) || empty($passwordRepeat)){
+    if(empty($fname) || empty($lname) || empty($citizenship) || empty($email)|| empty($phone) || empty($userName) || empty($password) || empty($passwordRepeat)){
         $result = true;
     }
     else {
@@ -35,7 +35,7 @@ function pwdMatch($password, $passwordRepeat) {
 
 function uidExists($connection, $userName, $email) {
     $result;
-    $sql = "SELECT * FROM ouc353_1.users WHERE usersUid = ? or usersEmail = ?;";
+    $sql = "SELECT * FROM ouc353_1.newUser WHERE username = ? or email = ?;";
     // initialize a statement to use sql statements 
     $stmt = mysqli_stmt_init($connection);
     if (!mysqli_stmt_prepare($stmt, $sql)) {
@@ -61,8 +61,8 @@ function uidExists($connection, $userName, $email) {
     mysqli_stmt_close($stmt);
 }
 
-function createUser($connection, $name, $email, $userName, $password) {
-    $sql = "INSERT INTO ouc353_1.users(UsersName, UsersEmail, UsersUID, UsersPwd) VALUES (?, ?, ?, ?);";
+function createUser($connection, $fname, $lname, $citizenship, $email, $phone, $userName, $password) {
+    $sql = "INSERT INTO ouc353_1.newUser(fName, lName, citizenship, email, phone, username, password) VALUES (?, ?, ?, ?, ?, ?, ?);";
     //initialize a statment using the connection to the database
     $stmt = mysqli_stmt_init($connection);
     //check if it's possible to give database the information above 
@@ -71,9 +71,9 @@ function createUser($connection, $name, $email, $userName, $password) {
         exit();
     }
     //use function hashed password to provide more security
-    $hashedPwd = password_hash($password, PASSWORD_DEFAULT);
+    //$hashedPwd = password_hash($password, PASSWORD_DEFAULT);
     //then bind parameters to the database
-    mysqli_stmt_bind_param($stmt, "ssss", $name, $email, $userName, $hashedPwd);
+    mysqli_stmt_bind_param($stmt, "sssssss", $fname, $lname, $citizenship, $email, $phone, $userName, $password);
     // execute the statement
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
@@ -103,23 +103,63 @@ function loginUser($connection, $userName, $password) {
     }
 
     // UsersPwd is the attribute in the database
-    $pwdHashed = $uidExists["UsersPwd"];
+    //$pwdHashed = $uidExists["password"];
+    $pwd = $uidExists["password"];
     // check if the password users input matches to the hashed password
-    $checkPwd = password_verify($password, $pwdHashed);
+    //$checkPwd = password_verify($password, $pws);
 
-    if($checkPwd === false) {  
+    if($pwd !== $password) {  
         //wrong password
         header("location: ../login.php?error=wronglogin");
         exit();
     }
-    else if($checkPwd === true) {
+    else if($pwd === $password) {
         //log in users into the website
         //start sessions to store data
         session_start();
-        $_SESSION["userid"] = $uidExists["usersID"];
-        $_SESSION["useruid"] = $uidExists["UsersUID"];
+        //$_SESSION["userid"] = $uidExists["usersID"];
+        $_SESSION["username"] = $uidExists["username"];
         //successfully loged in, go to the main webpage
+
+        $name = $uidExists["username"];
+        $sql = "SELECT userType FROM ouc353_1.newUser WHERE username='$name'";
+        $result = $connection->query($sql);
+
+        if ($result->num_rows == 1) {
+            // Get user type
+            $row = $result->fetch_assoc();
+            $uType = $row["userType"];
+
+            switch($uType) {
+                
+                case "Admin": 
+                    header("location: ../index_admin.php");
+                    exit();
+                    break;
+
+                case "Researcher": 
+                    header("location: ../index_researcher.php");
+                    exit();
+                    break;
+
+                case "orgDelegate": 
+                    header("location: ../index_orgDelegate.php");
+                    exit();
+                    break;
+
+                case "": 
+                    header("location: ../index.php");
+                    exit();
+                    break;
+                
+            }
+        }
+        else{
+            echo "no result";
+        }
+
         header("location: ../index.php");
         exit();
     }
+    
 }

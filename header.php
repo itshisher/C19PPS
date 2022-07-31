@@ -25,7 +25,7 @@ session_start();
                 <?php
                     // check if useruid is exist in the website to make sure users are logged in
                     //userid is stored in the session
-                    if(isset($_SESSION["useruid"])) {
+                    if(isset($_SESSION["username"])) {
                         echo "<li><a href='profile.php'>My profile</a></li>";
                         echo "<li><a href='logout.php'>Log out</a></li>";
                     }

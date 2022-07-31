@@ -3,17 +3,21 @@
 // unless users click on sumbit button to sign up, otherwise they will be send back to the sign up web page
 if(isset($_POST["submit"])) {   
 
-    $name = $_POST["lName"];
+    $fname = $_POST["fName"];
+    $lname = $_POST["lName"];
+    $citizenship = $_POST["citizenship"];
     $email = $_POST["email"];
+    $phone = $_POST["phone"];
     $userName = $_POST["uid"];
     $password = $_POST["password"];
     $passwordRepeat = $_POST["passwordRepeat"];
+    
 
     //include error handlers to catch potential problems users made
     require_once 'dbh.php';
     require_once 'functions.php';
 
-    if(emptyInputSignup($name, $email, $userName, $password, $passwordRepeat) !== false) {
+    if(emptyInputSignup($fname, $lname, $citizenship, $email, $phone, $userName, $password, $passwordRepeat) !== false) {
         header("location: ../signup.php?error=emptyinput");
         exit();
     }
@@ -33,7 +37,7 @@ if(isset($_POST["submit"])) {
         exit();
     }
 
-    createUser($connection, $name, $email, $userName, $password);
+    createUser($connection, $fname, $lname, $citizenship, $email, $phone, $userName, $password);
 
 }
 else {
