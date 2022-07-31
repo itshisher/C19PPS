@@ -27,8 +27,31 @@ ORDER BY citizenship, author, pubDate;
 ",
   12 => "",
   13 => "",
-  14 => "",
-  15 => "",
+  14 => "
+SELECT pubDate, majorTopic, minorTopic, summary, article
+FROM Articles
+WHERE author='<<;;>>'
+ORDER BY pubDate;
+",
+  15 => "
+SELECT author, cName AS citizenship, COUNT(Articles.aID) AS nPub
+FROM Articles
+INNER JOIN (
+  SELECT name, cID
+  FROM (
+    (
+        SELECT CONCAT(firstName, ' ', lastName) AS name, citizenshipID AS cID
+        FROM Users
+        WHERE privilegeName='researcher'
+    ) UNION (
+        SELECT oName AS name, countryID AS cID
+        FROM Organizations
+    )
+  ) Authors
+) Authors ON Articles.author=Authors.name
+LEFT JOIN Countries ON Authors.cID=Countries.cID
+GROUP BY Articles.author;
+",
   16 => "",
   17 => "",
   18 => "",
@@ -46,8 +69,8 @@ $arr_headers = array(
   11 => ["Author", "Major Topic", "Minor Topic", "Date of Publication", "Country"],
   12 => [],
   13 => [],
-  14 => [],
-  15 => [],
+  14 => ["Date of Publication", "Major Topic", "Minor Topic", "Summary", "Article"],
+  15 => ["Author", "Country", "Number of Publications"],
   16 => [],
   17 => [],
   18 => [],
