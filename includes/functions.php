@@ -117,7 +117,7 @@ function loginUser($connection, $userName, $password) {
         //log in users into the website
         //start sessions to store data
         session_start();
-        //$_SESSION["userid"] = $uidExists["usersID"];
+        $_SESSION["userType"] = $uidExists["userType"];
         $_SESSION["username"] = $uidExists["username"];
         //successfully loged in, go to the main webpage
 
