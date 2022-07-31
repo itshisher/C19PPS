@@ -7,6 +7,18 @@
         <p>The C19PPS system help researchers, companies, and world population to keep track of the COVID-19 pandemic progress.</p>
         
         <?php 
+		
+		
+	
+            // the message
+            $msg = "First line of text\nSecond line of text";
+
+            // use wordwrap() if lines are longer than 70 characters
+            $msg = wordwrap($msg,70);
+
+            // send email
+            mail("06spareek@gmail.com","DB email notification test",$msg);
+
 
             require_once 'includes/dbh.php';
             

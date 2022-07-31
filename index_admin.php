@@ -6,7 +6,7 @@
         <h1>Welcome! 
             <?php
                 echo $_SESSION["username"];
-            ?>s
+            ?>
         </h1>
 
         <!-- following include normal features that can be also seen by other users -->
