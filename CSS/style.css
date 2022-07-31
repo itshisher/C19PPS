@@ -82,3 +82,8 @@ p {
   display: flexbox;
   justify-content: center;
 }
+
+/* query result */
+.qryres-table {
+  border: 1px solid black;
+}
