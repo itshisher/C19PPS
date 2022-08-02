@@ -22,7 +22,6 @@ session_start();
                 <li><a href="index.php">Home</a></li>
                 <li><a href="index_admin.php">Adminstrators</a></li>
                 <li><a href="index_researcher.php">Researchers</a></li>
-				<li><a href="articles.php">Articles</a></li>
                 <li><a href="index_orgDelegate.php">Delegates</a></li>
                 <li><a href="articles.php">Articles</a></li>
                 <?php
@@ -32,6 +31,15 @@ session_start();
                         echo "<li><a href='subscribe.php'>My subscription</a></li>";
                         echo "<li><a href='logout.php'>Log out</a></li>"; 
                     }
+                    // else if($_SESSION["isSuspend"] == 1) {
+                    //     echo ("<script LANGUAGE='JavaScript'>
+                    //         window.alert('Sorry, your account is suspended.');
+                    //         window.location.href='index.php';
+                    //     </script>");
+                    //     echo "<li><a href='signup.php'>Sign up</a></li>";
+                    //     echo "<li><a href='login.php'>Log in</a></li>";
+                        
+                    // }
                     else {
                         echo "<li><a href='signup.php'>Sign up</a></li>";
                         echo "<li><a href='login.php'>Log in</a></li>";

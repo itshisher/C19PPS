@@ -21,6 +21,9 @@
                 else if($_GET["error"] == "wronglogin") {
                     echo "<p>Incorrect login information, please enter again!</p>";
                 }
+                else if($_GET["error"] == "issuspended") {
+                    echo "<p>Your account is suspended by an adminstrator, please contact him!</p>";
+                }
             }
         ?>
     </section>

@@ -43,6 +43,16 @@ section {
   padding: 20px;
 }
 
+section form div a {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+section a {
+  font-size: 24px;
+  font-weight: bold;
+}
+
 body {
   background-color: #333333;
 }
