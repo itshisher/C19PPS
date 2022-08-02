@@ -13,10 +13,10 @@ SELECT author, majorTopic, minorTopic, pubDate, cName AS citizenship
 FROM Articles
 LEFT JOIN (
   (
-    SELECT CONCAT(firstName, ' ', lastName) AS name, cName
-    FROM Users
+    SELECT CONCAT(uFName, ' ', uLName) AS name, cName
+    FROM User
     LEFT JOIN Countries on citizenshipID=cID
-    WHERE privilegeName='researcher'
+    WHERE userType='researcher'
   ) UNION (
     SELECT oName AS name, cName
     FROM Organizations
@@ -40,9 +40,9 @@ INNER JOIN (
   SELECT name, cID
   FROM (
     (
-        SELECT CONCAT(firstName, ' ', lastName) AS name, citizenshipID AS cID
-        FROM Users
-        WHERE privilegeName='researcher'
+        SELECT CONCAT(uFName, ' ', uLName) AS name, citizenshipID AS cID
+        FROM User
+        WHERE userType='researcher'
     ) UNION (
         SELECT oName AS name, countryID AS cID
         FROM Organizations
@@ -63,9 +63,9 @@ LEFT JOIN (
   SELECT auName, cID, COUNT(Articles.aID) AS nPub
   FROM (
     (
-      SELECT CONCAT(firstName, ' ', lastName) AS auName, citizenshipID AS cID
-      FROM Users
-      WHERE privilegeName='researcher'
+      SELECT CONCAT(uFName, ' ', uLName) AS auName, citizenshipID AS cID
+      FROM User
+      WHERE userType='researcher'
     ) UNION (
       SELECT oName AS auName, countryID AS cID FROM Organizations
     )
