@@ -4,19 +4,14 @@
 ?>
 
     <section class="signup-form">
-        <h2>Add a user</h2>
-        <form action="includes/addUser_inc.php" method="post">
+        <h2>Add an organization</h2>
+        <form action="includes/addOrg_inc.php" method="post">
             <div class="signup-form-style">
-                <input type="text" name="addFname" placeholder="Please enter his/her first name"> <br>
-                <input type="text" name="addLname" placeholder="Please enter his/her last name"> <br>
-                <input type="text" name="addCitizen" placeholder="Please enter his/her citizenship"> <br>
-                <input type="text" name="addEmail" placeholder="Please enter his/her email address"> <br>
-                <input type="tel" name="addPhone" placeholder="Phone number..."> <br>
-                <input type="text" name="addUsername" placeholder="Please enter his/her username"> <br>
-                <input type="text" name="addUserType" placeholder="Please determine his/her user type"> <br>
-                <input type="password" name="addPassword" placeholder="Please create a password"> <br>
-                <input type="password" name="rptPassword" placeholder="Peasee repeat the password"> <br>
-                <button type="sumbit" name="submitNewUser">Add</button> <br><br>
+                <input type="text" name="addOrgName" placeholder="Please enter an organization name"> <br>
+                <input type="text" name="addOrgType" placeholder="Research center/Company/Government agency"> <br>
+                <input type="number" name="addOrgCountryID" placeholder="Please indicate Country ID for this organization" max="10" min="1"> <br>
+        
+                <button type="sumbit" name="addNewOrg">Add</button> <br><br>
                 <a href="index_admin.php">Go back</a>
             </div>
         </form>

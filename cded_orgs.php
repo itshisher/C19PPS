@@ -3,19 +3,19 @@
 ?>
 
     <section class="index-intro">
-        <p>Following are all the users that exist in our system</p>
+        <p>Following are all the organizations that exist in our system</p>
 
         
         <?php 
 
             require_once 'includes/dbh.php';
             
-            $sql = "SELECT userID, userType, username, uFName, uLName, citizenship, email, phone_number FROM ouc353_1.User";
+            $sql = "SELECT oID, oName, oType FROM ouc353_1.Organizations";
             $result = $connection->query($sql);
 
             if ($result->num_rows > 0) {
                 // output data of each row
-                $headers = ["user role", "username", "first name", "last name", "citizenship", "email", "phone", "Actions"];
+                $headers = ["Organization ID", "Organization name", "Organization type", "Actions"];
                 require_once 'includes/functions.php';
                 display_qry_result2($result,$headers);
             } else {
@@ -23,7 +23,7 @@
             }
         ?>
         <br>
-        <a href="addUser.php">Add a user</a> <br><br>
+        <a href="addOrganization.php">Add an Organization</a> <br><br>
         <a href="index_admin.php">Go back to Admin page</a>
 
     </section>

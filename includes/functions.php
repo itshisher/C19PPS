@@ -11,6 +11,8 @@ function emptyInputSignup($fname, $lname, $citizenship, $email, $phone, $userNam
     return $result;
 }
 
+
+
 function invalidUid($userName) {
     $result;
     if (!preg_match("/^[a-zA-Z0-9]*$/", $userName)) {
@@ -99,6 +101,28 @@ function addUser($connection, $fname, $lname, $citizenship, $email, $phone, $use
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
     header("location: ../addUser.php?error=none");
+    exit();
+}
+
+// edit user
+function editUser($connection, $username, $userType, $isSuspended) {
+    // $sql = "INSERT INTO ouc353_1.User(uFName, uLName, citizenship, email, phone_number, username, userType, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+    $sql = "UPDATE ouc353_1.User SET userType = $userType, isSuspended = $isSuspended WHERE username = $username";
+    //initialize a statment using the connection to the database
+    $stmt = mysqli_stmt_init($connection);
+    //check if it's possible to give database the information above 
+    if(!mysqli_stmt_prepare($stmt, $sql)) {
+        header("location: ../signup.php?error=stmtfailed");
+        exit();
+    }
+    //use function hashed password to provide more security
+    //$hashedPwd = password_hash($password, PASSWORD_DEFAULT);
+    //then bind parameters to the database
+    mysqli_stmt_bind_param($stmt, "sss", $username, $userType, $isSuspended);
+    // execute the statement
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+    header("location: ../editUser.php?error=none");
     exit();
 }
 
@@ -247,11 +271,13 @@ function display_qry_result2($result, $headers) {
 
     // Display table body, the sql query result
     while ($row = $result->fetch_assoc()) {
+        $id = array_shift($row);
         echo '<tr class="qryres-tr">';
         foreach ($row as $td)
             echo '<td class="qryres-td">' . htmlspecialchars($td) . '</td>';
-            echo '<td >' . '<button>Delete</button>' . " " . '<button>Edit</button>' . '</td>';
+            echo '<td><a href="editUser.php?id=' . $id . '">Edit</a> &nbsp <a href="deleteUser.php?id=' . $id . '">Delete</a></td>';
         echo '</tr>';
+
         
     }
     
