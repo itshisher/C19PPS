@@ -279,7 +279,7 @@ function display_qry_result2($result, $headers) {
             <td>
               <a href="editUser.php?id=$id">Edit</a>
               &nbsp
-              <a href="deleteUser.php?id=$id">Delete</a>
+              <a href="deleteUser_inc.php?id=$id">Delete</a>
             </td>';
             EOD;
         echo '</tr>';
