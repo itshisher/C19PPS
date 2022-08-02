@@ -76,7 +76,13 @@ LEFT JOIN (
 GROUP BY Countries.cID
 ORDER BY Regions.rName, nPub DESC;
 ",
-  17 => "",
+  17 => "
+SELECT Regions.rName,
+  Countries.cName
+  SUM(population) AS cPop,
+  SUM(pstVax) AS cVax,
+  SUM(pstDeaths) AS cDeaths,
+",
   18 => "",
   19 => "",
   20 => "",

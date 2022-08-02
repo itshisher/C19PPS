@@ -274,8 +274,14 @@ function display_qry_result2($result, $headers) {
         $id = array_shift($row);
         echo '<tr class="qryres-tr">';
         foreach ($row as $td)
-            echo '<td class="qryres-td">' . htmlspecialchars($td) . '</td>';
-            echo '<td><a href="editUser.php?id=' . $id . '">Edit</a> &nbsp <a href="deleteUser.php?id=' . $id . '">Delete</a></td>';
+            echo <<<EOD
+            <td class="qryres-td">{$htmlspecialchars($td)}</td>;
+            <td>
+              <a href="editUser.php?id=$id">Edit</a>
+              &nbsp
+              <a href="deleteUser.php?id=$id">Delete</a>
+            </td>';
+            EOD;
         echo '</tr>';
 
         
