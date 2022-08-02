@@ -17,7 +17,9 @@
                 // output data of each row
                 $headers = ["user role", "username", "first name", "last name", "citizenship", "email", "phone", "Actions"];
                 require_once 'includes/functions.php';
-                display_qry_result2($result,$headers);
+                $url_edit = 'editUser.php';
+                $url_delete = 'deleteUser.php';
+                display_qry_result2($result, $headers, $url_edit, $url_delete);
             } else {
                 echo "0 results";
             }

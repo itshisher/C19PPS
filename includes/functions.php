@@ -254,7 +254,7 @@ function display_qry_result($result, $headers) {
 }
 
 // create a table with an extra column shows delete/edit actions
-function display_qry_result2($result, $headers) {
+function display_qry_result2($result, $headers, $url_edit, $url_delete) {
     if ($result->num_rows == 0) {
         echo '0 results';
         return;
@@ -277,9 +277,9 @@ function display_qry_result2($result, $headers) {
             echo <<<EOD
             <td class="qryres-td">{$htmlspecialchars($td)}</td>;
             <td>
-              <a href="editUser.php?id=$id">Edit</a>
+              <a href="$url_edit?id=$id">Edit</a>
               &nbsp
-              <a href="deleteUser_inc.php?id=$id">Delete</a>
+              <a href="$url_delete?id=$id">Delete</a>
             </td>';
             EOD;
         echo '</tr>';
