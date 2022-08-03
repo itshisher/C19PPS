@@ -6,7 +6,6 @@ if(!isset($_GET['id'])) {
 }
 
 
-
 $eid = $_GET['id'];
 $sql = "DELETE FROM Employees WHERE eID = $eid;";
 

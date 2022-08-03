@@ -20,10 +20,5 @@ btn4.addEventListener("click", function () {
 
 var btn5 = document.getElementById("country");
 btn5.addEventListener("click", function () {
-  document.location.href = "cded_country.php";
-});
-
-var btn6 = document.getElementById("prostater");
-btn6.addEventListener("click", function () {
-  document.location.href = "cded_prostater.php";
+  document.location.href = "countries.php";
 });

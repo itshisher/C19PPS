@@ -15,11 +15,11 @@
 
             if ($result->num_rows > 0) {
                 // output data of each row
-                $headers = ["Author name", "Author type", "Major topic", "Minor topic", "Actions"];
+                $headers = ["Article ID" ,"Author name", "Author type", "Major topic", "Minor topic"];
 
                 require_once 'includes/functions.php';
                 
-                del_article($result, $headers);
+                display_qry_result($result, $headers);
             } else {
                 echo "0 results";
             }

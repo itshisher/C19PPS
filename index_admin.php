@@ -25,9 +25,9 @@
         <button id="users">Create/Delete/Edit Users</button> <br>
         <button id="orgs">Create/Delete/Edit Organizations</button><br>
         <button id="employee">Create/Delete/Edit Employee for Organization</button><br>
-        <button id="article">Delete Articles</button><br>
-        <button id="country">Create/Delete/Edit Countries</button><br>
-        <button id="prostater">Create/Delete/Edit Province/States/Territories</button>
+        <button id="article">Show Articles</button><br>
+        <button id="country">Create/Delete/Edit Countries/Province/State/TerritoryS</button><br>
+        
         
 
         
