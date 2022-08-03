@@ -98,12 +98,46 @@ LEFT JOIN (
 GROUP BY Countries.cID
 ORDER BY Regions.rName, nPub DESC;
 ",
-  17 => "
-SELECT Regions.rName,
-  Countries.cName
-  SUM(population) AS cPop,
-  SUM(pstVax) AS cVax,
-  SUM(pstDeaths) AS cDeaths,
+17 => "
+SELECT rName, cName,
+  SUM(Pst1.pstInjections) AS cInjections,
+  SUM(Pst1.pstDeathsTot) AS cDeathsTot,
+  SUM(Pst1.pstDeathsVax) AS cDeathsVax,
+  SUM(Pst2.pstPopulation) AS cPopulation
+FROM Countries
+RIGHT JOIN Regions ON Countries.rID=Regions.rID
+LEFT JOIN ProStaTe ON Countries.cID=ProStaTe.cID
+LEFT JOIN (
+  SELECT Vd1.pstID,
+    SUM(Vd1.nInjections) AS pstInjections,
+    SUM(Vd1.nDeaths) AS pstDeathsTot,
+    SUM(Vd2.nDeathsVax) AS pstDeathsVax
+  FROM VaccineData Vd1
+  LEFT JOIN (
+    SELECT pstID, updatedDate, nDeaths AS nDeathsVax
+    FROM VaccineData
+    WHERE vID IS NOT NULL
+  ) Vd2 ON Vd1.pstID=Vd2.pstID AND Vd1.updatedDate=Vd2.updatedDate
+  JOIN (
+    SELECT pstID, MAX(updatedDate) AS latestDate
+    FROM VaccineData
+    GROUP BY pstID
+  ) Vd3 ON Vd1.pstID=Vd3.pstID AND Vd1.updatedDate=Vd3.latestDate
+  GROUP BY Vd1.pstID
+) Pst1 ON ProStaTe.pstID=Pst1.pstID
+LEFT JOIN (
+  SELECT Pop1.pstID,
+    SUM(Pop1.population) AS pstPopulation
+  FROM Populations Pop1
+  JOIN (
+    SELECT pstID, MAX(updatedDate) AS latestDate
+    FROM Populations
+    GROUP BY pstID
+  ) Pop2 ON Pop1.pstID=Pop2.pstID AND Pop1.updatedDate=Pop2.latestDate
+  GROUP BY Pop1.pstID
+) Pst2 ON ProStaTe.pstID=Pst2.pstID
+GROUP BY Countries.cID
+ORDER BY cDeathsTot;
 ",
   18 => "
 SELECT timeSent, email, subject
@@ -147,7 +181,7 @@ $arr_headers = array(
   14 => ["Date of Publication", "Major Topic", "Minor Topic", "Summary", "Article"],
   15 => ["Author", "Country", "Number of Publications"],
   16 => ["Region", "Country", "Number of Authors", "Number of Publications"],
-  17 => [],
+  17 => ["Region", "Country", "Injections", "Total Deaths", "Vaccinated Deaths", "Population"],
   18 => ["Time Sent", "Email", "Subject"],
   19 => [],
   20 => ["Author", "Citizenship", "Number of Subscribers"],
