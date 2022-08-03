@@ -26,7 +26,7 @@
         <button id="orgs">Create/Delete/Edit Organizations</button><br>
         <button id="employee">Create/Delete/Edit Employee for Organization</button><br>
         <button id="article">Show Articles</button><br>
-        <button id="country">Create/Delete/Edit Countries/Province/State/TerritoryS</button><br>
+        <button id="country">Create/Delete/Edit Countries/Province/State/Territory</button><br>
         
         
 
