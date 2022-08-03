@@ -28,9 +28,9 @@ if ($result->num_rows > 0)
 {
     while ($row = $result->fetch_assoc())
     {
-        echo "<div class='w3-third w3-margin-bottom'>
+        echo "<div class='w3-third w3-margin-bottom' id=\""  . $row["aID"] .  "\">
 					<div class='w3-container w3-white'>
-					<p><b>". substr($row["author"], 0, 20) ."</b></p><p class='w3-opacity'>". $row["pubDate"] ."</p><p class='w3-opacity'>". $row["majorTopic"] ."</p><p>". substr($row["summary"], 0, 20) ."</p>
+					<p><b>". substr($row["author"], 0, 10) ."</b></p><p class='w3-opacity'>". $row["pubDate"] ."</p><p class='w3-opacity'>". $row["majorTopic"] ."</p><p>". substr($row["summary"], 0, 10) ."</p>
 					<button class='w3-button w3-black w3-margin-bottom'   onclick=\"showArticle(" . $row["aID"] . ")\">View More</button>
 					</div></div>";
     }
@@ -110,9 +110,11 @@ function showArticle(id) {
 function deleteArticle(){
 	const xhttp = new XMLHttpRequest();
     xhttp.onload = function() {
-	console.log(this.responseText);
+		var aID=document.getElementById("aID").innerHTML;
+		document.getElementById(aID).remove();
+		console.log(this.responseText);
 	}
-	xhttp.open("GET", "articleQueries.php?id=" + document.getElementById("aID").innerHTML+"&method=delete", true);
+	xhttp.open("GET", "articleQueries.php?id=" + aID.innerHTML+"&method=delete", true);
     xhttp.send();
 	document.getElementById("articleModal").style.display='none';
 }
