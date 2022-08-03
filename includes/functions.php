@@ -83,7 +83,7 @@ function createUser($connection, $fname, $lname, $citizenship, $email, $phone, $
     exit();
 }
 
-//add new users
+//add new users by admin
 function addUser($connection, $fname, $lname, $citizenship, $email, $phone, $userName, $userType,$password) {
     $sql = "INSERT INTO ouc353_1.User(uFName, uLName, citizenship, email, phone_number, username, userType, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
     //initialize a statment using the connection to the database
@@ -104,10 +104,9 @@ function addUser($connection, $fname, $lname, $citizenship, $email, $phone, $use
     exit();
 }
 
-// edit user
-function editUser($connection, $username, $userType, $isSuspended) {
-    // $sql = "INSERT INTO ouc353_1.User(uFName, uLName, citizenship, email, phone_number, username, userType, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
-    $sql = "UPDATE ouc353_1.User SET userType = $userType, isSuspended = $isSuspended WHERE username = $username";
+// add new organizations by admin
+function addOrg($connection, $addOrgName, $addOrgType, $addOrgCountryID) {
+    $sql = "INSERT INTO ouc353_1.Organizations(oName, oType, countryID) VALUES (?, ?, ?);";
     //initialize a statment using the connection to the database
     $stmt = mysqli_stmt_init($connection);
     //check if it's possible to give database the information above 
@@ -118,11 +117,32 @@ function editUser($connection, $username, $userType, $isSuspended) {
     //use function hashed password to provide more security
     //$hashedPwd = password_hash($password, PASSWORD_DEFAULT);
     //then bind parameters to the database
-    mysqli_stmt_bind_param($stmt, "sss", $username, $userType, $isSuspended);
+    mysqli_stmt_bind_param($stmt, "sss", $addOrgName, $addOrgType, $addOrgCountryID);
     // execute the statement
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
-    header("location: ../editUser.php?error=none");
+    header("location: ../addOrganization.php?error=none");
+    exit();
+}
+
+// add new employees by admin
+function addEmp($connection, $addEmpFname, $addEmpLName, $addEmpTitle, $addEmpOrgID) {
+    $sql = "INSERT INTO ouc353_1.Employees(efName, eLName, job_title, oID) VALUES (?, ?, ?, ?);";
+    //initialize a statment using the connection to the database
+    $stmt = mysqli_stmt_init($connection);
+    //check if it's possible to give database the information above 
+    if(!mysqli_stmt_prepare($stmt, $sql)) {
+        header("location: ../signup.php?error=stmtfailed");
+        exit();
+    }
+    //use function hashed password to provide more security
+    //$hashedPwd = password_hash($password, PASSWORD_DEFAULT);
+    //then bind parameters to the database
+    mysqli_stmt_bind_param($stmt, "ssss", $addEmpFname, $addEmpLName, $addEmpTitle, $addEmpOrgID);
+    // execute the statement
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_close($stmt);
+    header("location: ../addEmployee.php?error=none");
     exit();
 }
 
@@ -253,8 +273,8 @@ function display_qry_result($result, $headers) {
     echo '</table>';
 }
 
-// create a table with an extra column shows delete/edit actions
-function display_qry_result2($result, $headers) {
+// create a table with an extra column shows delete/edit users
+function edit_del_user($result, $headers) {
     if ($result->num_rows == 0) {
         echo '0 results';
         return;
@@ -275,11 +295,90 @@ function display_qry_result2($result, $headers) {
         echo '<tr class="qryres-tr">';
         foreach ($row as $td)
             echo '<td class="qryres-td">' . htmlspecialchars($td) . '</td>';
-            echo '<td><a href="editUser.php?id=' . $id . '">Edit</a> &nbsp <a onClick=\"javascript: return confirm("Please confirm deletion");\" href="deleteUser.php?id=' . $id . '">Delete</a></td>';
+            echo '<td><a href="editUser.php?id=' . $id . '">Edit</a> &nbsp <a href="deleteUser.php?id=' . $id . '">Delete</a></td>';
         echo '</tr>';
-
-        
     }
-    
+    echo '</table>';
+}
+
+// create a table with an extra column shows delete/edit organizations
+function edit_del_org($result, $headers) {
+    if ($result->num_rows == 0) {
+        echo '0 results';
+        return;
+    }
+
+    // Display result table
+    echo '<table class="qryres-table">';
+
+    // Display table headers
+    echo '<tr class="qryres-tr">';
+    foreach ($headers as $th)
+        echo '<th class="qryres-th">' . htmlspecialchars($th) . '</th>';
+    echo '</tr>';
+
+    // Display table body, the sql query result
+    while ($row = $result->fetch_assoc()) {
+        $id = array_shift($row);
+        echo '<tr class="qryres-tr">';
+        foreach ($row as $td)
+            echo '<td class="qryres-td">' . htmlspecialchars($td) . '</td>';
+            echo '<td><a href="editOrg.php?id=' . $id . '">Edit</a> &nbsp <a href="deleteOrg.php?id=' . $id . '">Delete</a></td>';
+        echo '</tr>';
+    }
+    echo '</table>';
+}
+
+function edit_del_emp($result, $headers) {
+    if ($result->num_rows == 0) {
+        echo '0 results';
+        return;
+    }
+
+    // Display result table
+    echo '<table class="qryres-table">';
+
+    // Display table headers
+    echo '<tr class="qryres-tr">';
+    foreach ($headers as $th)
+        echo '<th class="qryres-th">' . htmlspecialchars($th) . '</th>';
+    echo '</tr>';
+
+    // Display table body, the sql query result
+    while ($row = $result->fetch_assoc()) {
+        $id = array_shift($row);
+        echo '<tr class="qryres-tr">';
+        foreach ($row as $td)
+            echo '<td class="qryres-td">' . htmlspecialchars($td) . '</td>';
+            echo '<td><a href="editEmployee.php?id=' . $id . '">Edit</a> &nbsp <a href="deleteEmployee.php?id=' . $id . '">Delete</a></td>';
+        echo '</tr>';
+    }
+    echo '</table>';
+}
+
+function del_article($result, $headers) {
+    if ($result->num_rows == 0) {
+        echo '0 results';
+        return;
+    }
+
+    // Display result table
+    echo '<table class="qryres-table">';
+
+    // Display table headers
+    echo '<tr class="qryres-tr">';
+    foreach ($headers as $th)
+        echo '<th class="qryres-th">' . htmlspecialchars($th) . '</th>';
+    echo '</tr>';
+
+    // Display table body, the sql query result
+    while ($row = $result->fetch_assoc()) {
+        $id = array_shift($row);
+        echo '<tr class="qryres-tr">';
+        foreach ($row as $td)
+            echo '<td class="qryres-td">' . htmlspecialchars($td) . '</td>';
+            echo '<td><a href="deleteEmployee.php?id=' . $id . '">Delete</a></td>';
+        echo '</tr>';
+    }
     echo '</table>';
 }

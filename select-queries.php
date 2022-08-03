@@ -4,17 +4,18 @@ if (!isset($_GET['qry_id'])) {
   include_once 'header.php';
   echo <<<EOD
     <section class="select-queries-section">
+      <h2>Available information (SELECT queries)</h2>
       <ol start="11">
         <li><a href="select-queries.php?qry_id=11">All articles briefing</a></li>
-        <li><a href="select-queries.php?qry_id=12">x</a></li>
-        <li><a href="select-queries.php?qry_id=13">x</a></li>
+        <li><a href="select-queries.php?qry_id=12">All removed articles</a></li>
+        <li><a href="select-queries.php?qry_id=13">Suspended users</a></li>
         <li><a href="select-queries.php?qry_id=14">Articles of an author</a></li>
         <li><a href="select-queries.php?qry_id=15">All publishers</a></li>
         <li><a href="select-queries.php?qry_id=16">Authors and publications</a></li>
-        <li><a href="select-queries.php?qry_id=17">x</a></li>
-        <li><a href="select-queries.php?qry_id=18">x</a></li>
-        <li><a href="select-queries.php?qry_id=19">x</a></li>
-        <li><a href="select-queries.php?qry_id=20">x</a></li>
+        <li><a href="select-queries.php?qry_id=17">Virus progress all countries</a></li>
+        <li><a href="select-queries.php?qry_id=18">All emails</a></li>
+        <li><a href="select-queries.php?qry_id=19">Historical reports Canada</a></li>
+        <li><a href="select-queries.php?qry_id=20">Subscriptions by author</a></li>
       </ol>
     </section>
   EOD;
@@ -56,6 +57,49 @@ if (!isset($_GET['qry_id'])) {
 
   include_once 'footer.php';
 
+  // #18 requires a time range
+} else if ($_GET['qry_id'] == 18 && (
+  !isset($_GET['date1']) || !isset($_GET['time1']) ||
+  !isset($_GET['date2']) || !isset($_GET['time2'])
+)) {
+
+  $qry_id = $_GET['qry_id'];
+
+  // Choose time range
+
+  include_once 'header.php';
+
+  echo <<<EOD
+  <section class="select-queries-section">
+    <div><a href="select-queries.php">Back</a></div>
+    <p>Please select a time range.</p>
+    <form action="select-queries.php" method="get">
+      <input type="hidden" name="qry_id" value="$qry_id"/>
+      <div>
+        <label for="date1">Start date:</label>
+        <input type="date" id="date1" name="date1"/>
+      </div>
+      <div>
+        <label for="time1">Start time:</label>
+        <input type="time" id="time1" name="time1"/>
+      </div>
+      <div>
+        <label for="date2">End date:</label>
+        <input type="date" id="date2" name="date2"/>
+      </div>
+      <div>
+        <label for="time2">End time:</label>
+        <input type="time" id="time2" name="time2"/>
+      </div>
+      <div>
+        <button type="submit">Confirm</button>
+      </div>
+    </form>
+  </section>
+  EOD;
+
+  include_once 'footer.php';
+
 } else {
 
   $qry_id = $_GET['qry_id'];
@@ -79,7 +123,10 @@ if (!isset($_GET['qry_id'])) {
     $sql = str_replace('<<;;>>', $auth, $sql);
     unset($auth);
   }
-
+  if ($qry_id == 18) {
+    $sql = str_replace('<<;a;>>', "'$_GET[date1] $_GET[time1]'", $sql);
+    $sql = str_replace('<<;b;>>',  "'$_GET[date2] $_GET[time2]'", $sql);
+  }
 
   // Perform SELECT query and get result
   require_once 'includes/dbh.php';
