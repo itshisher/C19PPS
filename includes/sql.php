@@ -16,7 +16,7 @@ LEFT JOIN (
     SELECT CONCAT(uFName, ' ', uLName) AS name, cName
     FROM User
     LEFT JOIN Countries on citizenshipID=cID
-    WHERE userType='researcher'
+    WHERE userType='researchers'
   ) UNION (
     SELECT oName AS name, cName
     FROM Organizations
@@ -42,7 +42,7 @@ INNER JOIN (
     (
         SELECT CONCAT(uFName, ' ', uLName) AS name, citizenshipID AS cID
         FROM User
-        WHERE userType='researcher'
+        WHERE userType='researchers'
     ) UNION (
         SELECT oName AS name, countryID AS cID
         FROM Organizations
@@ -65,7 +65,7 @@ LEFT JOIN (
     (
       SELECT CONCAT(uFName, ' ', uLName) AS auName, citizenshipID AS cID
       FROM User
-      WHERE userType='researcher'
+      WHERE userType='researchers'
     ) UNION (
       SELECT oName AS auName, countryID AS cID FROM Organizations
     )
