@@ -88,6 +88,16 @@ p {
   margin-top: 20px;
 }
 
+.signup-form-style label {
+  display: inline-block;
+  text-align: right;
+  width: 100px;
+}
+
+.signup-form-style input {
+  vertical-align: top;
+}
+
 .signup-form-style {
   display: flexbox;
   justify-content: center;

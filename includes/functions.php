@@ -254,7 +254,7 @@ function display_qry_result($result, $headers) {
 }
 
 // create a table with an extra column shows delete/edit actions
-function display_qry_result2($result, $headers, $url_edit, $url_delete) {
+function display_qry_result2($result, $headers) {
     if ($result->num_rows == 0) {
         echo '0 results';
         return;
@@ -274,14 +274,8 @@ function display_qry_result2($result, $headers, $url_edit, $url_delete) {
         $id = array_shift($row);
         echo '<tr class="qryres-tr">';
         foreach ($row as $td)
-            echo <<<EOD
-            <td class="qryres-td">{$htmlspecialchars($td)}</td>;
-            <td>
-              <a href="$url_edit?id=$id">Edit</a>
-              &nbsp
-              <a href="$url_delete?id=$id">Delete</a>
-            </td>';
-            EOD;
+            echo '<td class="qryres-td">' . htmlspecialchars($td) . '</td>';
+            echo '<td><a href="editUser.php?id=' . $id . '">Edit</a> &nbsp <a onClick=\"javascript: return confirm("Please confirm deletion");\" href="deleteUser.php?id=' . $id . '">Delete</a></td>';
         echo '</tr>';
 
         
