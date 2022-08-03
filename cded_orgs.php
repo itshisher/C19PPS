@@ -10,14 +10,16 @@
 
             require_once 'includes/dbh.php';
             
-            $sql = "SELECT oID, oName, oType FROM ouc353_1.Organizations";
+            $sql = "SELECT oID, oName, oType, countryID FROM ouc353_1.Organizations";
             $result = $connection->query($sql);
 
             if ($result->num_rows > 0) {
                 // output data of each row
-                $headers = ["Organization ID", "Organization name", "Organization type", "Actions"];
+                $headers = ["Organization name", "Organization type", "Country ID", "Actions"];
+
                 require_once 'includes/functions.php';
-                display_qry_result2($result,$headers);
+                
+                edit_del_org($result, $headers);
             } else {
                 echo "0 results";
             }
@@ -28,7 +30,6 @@
 
     </section>
     
-
 <?php
     include_once 'footer.php';
 ?>

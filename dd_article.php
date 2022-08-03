@@ -3,34 +3,32 @@
 ?>
 
     <section class="index-intro">
-        <p>Following are all the users that exist in our system</p>
+        <p>Following are all the articles that exist in our system</p>
 
         
         <?php 
 
             require_once 'includes/dbh.php';
             
-            $sql = "SELECT userID, userType, username, uFName, uLName, citizenship, email, phone_number FROM ouc353_1.User";
+            $sql = "SELECT aID, author, authorType, majorTopic, minorTopic FROM ouc353_1.Articles";
             $result = $connection->query($sql);
 
             if ($result->num_rows > 0) {
                 // output data of each row
-                $headers = ["user role", "username", "first name", "last name", "citizenship", "email", "phone", "Actions"];
-                
+                $headers = ["Author name", "Author type", "Major topic", "Minor topic", "Actions"];
+
                 require_once 'includes/functions.php';
                 
-                edit_del_user($result, $headers);
+                del_article($result, $headers);
             } else {
                 echo "0 results";
             }
         ?>
         <br>
-        <a href="addUser.php">Add a user</a> <br><br>
         <a href="index_admin.php">Go back to Admin page</a>
 
     </section>
     
-
 <?php
     include_once 'footer.php';
 ?>

@@ -34,7 +34,7 @@
                 }
 
                 else if($_GET["error"] == "none") {
-                    echo "<p>Congrats! You have successfully added a new user!</p>";
+                    echo "<p>Congrats! You have successfully added a new organization!</p>";
                 }
             }
         ?>

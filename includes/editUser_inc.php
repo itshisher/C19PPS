@@ -4,7 +4,6 @@ require_once 'dbh.php';
 // unless users click on sumbit button to sign up, otherwise they will be send back to the sign up web page
 if(isset($_POST["editUser"])) {   
     
-    // @yang data validation?
     $uid = $_POST['uid'];
     $ufname = $_POST['uFName'];
     $ulname = $_POST['uLName'];
@@ -18,7 +17,6 @@ if(isset($_POST["editUser"])) {
     $userType = $_POST['userType'];
     
     
-
     $sql = "UPDATE User 
     SET uFName = '$ufname',
     uLName = '$ulname',
@@ -43,12 +41,7 @@ if(isset($_POST["editUser"])) {
       } else {
         echo "Error updating record: " . $connection->error;
       }
-    // if(!(uidExists($connection, $vUser) !== false)) {
-    //     header("location: ../editUser.php?error=usernotexist");
-    //     exit();
-    // }
-
-
+   
 }
 else {
     header("location: ../cded_users.php");
