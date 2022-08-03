@@ -4,6 +4,7 @@ if (!isset($_GET['qry_id'])) {
   include_once 'header.php';
   echo <<<EOD
     <section class="select-queries-section">
+      <h2>Available information (SELECT queries)</h2>
       <ol start="11">
         <li><a href="select-queries.php?qry_id=11">All articles briefing</a></li>
         <li><a href="select-queries.php?qry_id=12">All removed articles</a></li>
