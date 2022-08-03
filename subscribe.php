@@ -10,23 +10,21 @@
 
             require_once 'includes/dbh.php';
             
-            $sql = "SELECT oID, oName, oType, countryID FROM ouc353_1.Organizations";
+            $sql = "SELECT aID, author, authorType, majorTopic, minorTopic FROM ouc353_1.Articles";
             $result = $connection->query($sql);
 
             if ($result->num_rows > 0) {
                 // output data of each row
-                $headers = ["Organization name", "Organization type", "Country ID", "Actions"];
+                $headers = ["Author name", "Author type", "Major topic", "Minor topic", "Actions"];
 
                 require_once 'includes/functions.php';
                 
-                edit_del_org($result, $headers);
+                sub_author($result, $headers);
             } else {
                 echo "0 results";
             }
         ?>
         <br>
-        <a href="addOrganization.php">Add an Organization</a> <br><br>
-        <a href="index_admin.php">Go back to Admin page</a>
 
     </section>
     

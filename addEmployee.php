@@ -12,7 +12,7 @@
                 <input type="number" name="addEmpOrgID" min="0" placeholder="Please indicate organization ID for this employee" > <br>
         
                 <button type="sumbit" name="addNewEmp">Add</button> <br><br>
-                <a href="index_admin.php">Go back</a>
+                <a href="cded_employee.php">Go back</a>
             </div>
         </form>
         <!--error messages or sign up messages are included here  -->

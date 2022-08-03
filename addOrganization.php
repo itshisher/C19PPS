@@ -11,7 +11,7 @@
                 <input type="number" name="addOrgCountryID" placeholder="Please indicate Country ID for this organization" max="10" min="1"> <br>
         
                 <button type="sumbit" name="addNewOrg">Add</button> <br><br>
-                <a href="index_admin.php">Go back</a>
+                <a href="cded_orgs.php">Go back</a>
             </div>
         </form>
         <!--error messages or sign up messages are included here  -->

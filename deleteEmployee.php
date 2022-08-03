@@ -2,7 +2,7 @@
 require_once 'includes/dbh.php';
 
 if(!isset($_GET['id'])) {
-  header('location: cded_orgs.php');
+  header('location: cded_employee.php');
 }
 
 

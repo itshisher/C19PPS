@@ -12,7 +12,7 @@ $sql = "DELETE FROM Employees WHERE eID = $aid;";
 if ($connection->query($sql) === TRUE) {
   echo ("<script LANGUAGE='JavaScript'>
                   window.alert('Congrats! You have successfully deleted an employee!');
-                  window.location.href='../cded_employee.php';
+                  window.location.href='../dd_article.php';
               </script>");
 } else {
   echo "Error updating record: " . $connection->error;

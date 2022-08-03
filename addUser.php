@@ -17,7 +17,7 @@
                 <input type="password" name="addPassword" placeholder="Please create a password"> <br>
                 <input type="password" name="rptPassword" placeholder="Peasee repeat the password"> <br>
                 <button type="sumbit" name="submitNewUser">Add</button> <br><br>
-                <a href="index_admin.php">Go back</a>
+                <a href="cded_users.php">Go back</a>
             </div>
         </form>
         <!--error messages or sign up messages are included here  -->

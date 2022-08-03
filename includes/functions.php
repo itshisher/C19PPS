@@ -377,7 +377,34 @@ function del_article($result, $headers) {
         echo '<tr class="qryres-tr">';
         foreach ($row as $td)
             echo '<td class="qryres-td">' . htmlspecialchars($td) . '</td>';
-            echo '<td><a href="deleteEmployee.php?id=' . $id . '">Delete</a></td>';
+            echo '<td><a href="deleteArticles.php?id=' . $id . '">Delete</a></td>';
+        echo '</tr>';
+    }
+    echo '</table>';
+}
+
+function sub_author($result, $headers) {
+    if ($result->num_rows == 0) {
+        echo '0 results';
+        return;
+    }
+
+    // Display result table
+    echo '<table class="qryres-table">';
+
+    // Display table headers
+    echo '<tr class="qryres-tr">';
+    foreach ($headers as $th)
+        echo '<th class="qryres-th">' . htmlspecialchars($th) . '</th>';
+    echo '</tr>';
+
+    // Display table body, the sql query result
+    while ($row = $result->fetch_assoc()) {
+        $id = array_shift($row);
+        echo '<tr class="qryres-tr">';
+        foreach ($row as $td)
+            echo '<td class="qryres-td">' . htmlspecialchars($td) . '</td>';
+            echo '<td><a href="subscribe.php?id=' . $id . '">Subscribe</a></td>';
         echo '</tr>';
     }
     echo '</table>';
