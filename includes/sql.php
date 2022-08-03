@@ -98,7 +98,24 @@ WHERE timeSent >= <<;a;>>
 ORDER BY timeSent;
 ",
   19 => "",
-  20 => "",
+  20 => "
+(
+  SELECT CONCAT(uFName, ' ', uLName) AS name, cName, COUNT(Sub.userID) AS numSub
+  FROM User
+  JOIN Countries ON citizenshipID=cID
+  JOIN Subscription Sub ON User.userID=Sub.authorID
+    AND Sub.authorType='researchers'
+  GROUP BY User.userID
+) UNION (
+  SELECT oName AS name, cName, COUNT(Sub.userID) AS numSub
+  FROM Organizations Org
+  JOIN Countries ON countryID=cID
+  JOIN Subscription Sub ON Org.oID=Sub.authorID
+    AND Sub.authorType='organization'
+  GROUP BY Org.oID
+)
+ORDER BY numSub DESC;
+",
 );
 
 /**
@@ -117,6 +134,6 @@ $arr_headers = array(
   17 => [],
   18 => ["Time Sent", "Email", "Subject"],
   19 => [],
-  20 => [],
+  20 => ["Author", "Citizenship", "Number of Subscribers"],
 );
 ?>

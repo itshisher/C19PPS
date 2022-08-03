@@ -14,7 +14,7 @@ if (!isset($_GET['qry_id'])) {
         <li><a href="select-queries.php?qry_id=17">x</a></li>
         <li><a href="select-queries.php?qry_id=18">All emails</a></li>
         <li><a href="select-queries.php?qry_id=19">x</a></li>
-        <li><a href="select-queries.php?qry_id=20">x</a></li>
+        <li><a href="select-queries.php?qry_id=20">Subscriptions by author</a></li>
       </ol>
     </section>
   EOD;
