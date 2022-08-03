@@ -26,7 +26,13 @@ LEFT JOIN (
 ORDER BY citizenship, author, pubDate;
 ",
   12 => "",
-  13 => "",
+  13 => "
+SELECT userType, username, uFName, uLName, cName, email, phone_number, suspendDate
+FROM User
+JOIN Countries ON citizenshipID=cID
+WHERE isSuspended = true
+ORDER BY suspendDate ASC;
+",
   14 => "
 SELECT pubDate, majorTopic, minorTopic, summary, article
 FROM Articles
@@ -104,7 +110,7 @@ ORDER BY timeSent;
 $arr_headers = array(
   11 => ["Author", "Major Topic", "Minor Topic", "Date of Publication", "Country"],
   12 => [],
-  13 => [],
+  13 => ["Privilege Name", "Username", "First Name", "Last Name", "Citizenship", "Email", "Phone", "Suspension Date"],
   14 => ["Date of Publication", "Major Topic", "Minor Topic", "Summary", "Article"],
   15 => ["Author", "Country", "Number of Publications"],
   16 => ["Region", "Country", "Number of Authors", "Number of Publications"],
