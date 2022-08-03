@@ -56,9 +56,7 @@ if ($result->num_rows > 0)
       <form>
         <div class="w3-input" style="display: flex;align-items: center;">Publisher: <select name='author' id="author" class="w3-input w3-border">
 		<?php
-		$sql = "select concat(firstName,\" \", lastName) as oName from UserResearchers ur inner join Users u on ur.uID=u.uID
-			union
-			select oName from UserOrgDelegate uo inner join Organizations o on uo.orgID=o.oID";
+		$sql = "select concat(uFName,\" \", uLName) as oName from User u where u.userType=\"Researchers\" union select oName from UserOrgDelegate uo inner join Organizations o on uo.orgID=o.oID";
 		$authors_result = $connection->query($sql);
 		while ($author_row = $authors_result->fetch_assoc()){
 			echo "<option value=\"" . $author_row["oName"] . "\">" . $author_row["oName"] . "</option>";
@@ -89,6 +87,7 @@ if ($result->num_rows > 0)
 
 <script>
 function showArticle(id) {
+	console.log("uihds");
     const xhttp = new XMLHttpRequest();
     xhttp.onload = function() {
 		const article=JSON.parse(this.responseText);
