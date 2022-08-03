@@ -6,7 +6,7 @@ if (!isset($_GET['qry_id'])) {
     <section class="select-queries-section">
       <ol start="11">
         <li><a href="select-queries.php?qry_id=11">All articles briefing</a></li>
-        <li><a href="select-queries.php?qry_id=12">x</a></li>
+        <li><a href="select-queries.php?qry_id=12">All removed articles</a></li>
         <li><a href="select-queries.php?qry_id=13">Suspended users</a></li>
         <li><a href="select-queries.php?qry_id=14">Articles of an author</a></li>
         <li><a href="select-queries.php?qry_id=15">All publishers</a></li>

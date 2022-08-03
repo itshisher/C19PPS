@@ -25,7 +25,23 @@ LEFT JOIN (
 ) Authors ON Articles.author=Authors.name
 ORDER BY citizenship, author, pubDate;
 ",
-  12 => "",
+  12 => "
+SELECT author, majorTopic, minorTopic, pubDate, cName AS citizenship
+FROM Articles
+LEFT JOIN (
+  (
+    SELECT CONCAT(uFName, ' ', uLName) AS name, cName
+    FROM User
+    LEFT JOIN Countries on citizenshipID=cID
+    WHERE userType='researchers'
+  ) UNION (
+    SELECT oName AS name, cName
+    FROM Organizations
+    LEFT JOIN Countries on countryID=cID
+  )
+) Authors ON Articles.author=Authors.name
+ORDER BY citizenship, author, pubDate;
+",
   13 => "
 SELECT userType, username, uFName, uLName, cName, email, phone_number, suspendDate
 FROM User
@@ -126,7 +142,7 @@ ORDER BY numSub DESC;
  */
 $arr_headers = array(
   11 => ["Author", "Major Topic", "Minor Topic", "Date of Publication", "Country"],
-  12 => [],
+  12 => ["Author", "Major Topic", "Minor Topic", "Date of Publication", "Country"],
   13 => ["Privilege Name", "Username", "First Name", "Last Name", "Citizenship", "Email", "Phone", "Suspension Date"],
   14 => ["Date of Publication", "Major Topic", "Minor Topic", "Summary", "Article"],
   15 => ["Author", "Country", "Number of Publications"],
