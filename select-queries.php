@@ -36,7 +36,6 @@ if (!isset($_GET['qry_id'])) {
 
   echo <<<EOD
   <section class="select-queries-section">
-    <a href="select-queries.php">Back</a>
     <div><a href="select-queries.php">Back</a></div>
     <p>Please select an author to display information for.</p>
     <form action="select-queries.php" method="get">
