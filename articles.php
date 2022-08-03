@@ -30,7 +30,7 @@ if ($result->num_rows > 0)
     {
         echo "<div class='w3-third w3-margin-bottom' id=\""  . $row["aID"] .  "\">
 					<div class='w3-container w3-white'>
-					<p><b>". substr($row["author"], 0, 10) ."</b></p><p class='w3-opacity'>". $row["pubDate"] ."</p><p class='w3-opacity'>". $row["majorTopic"] ."</p><p>". substr($row["summary"], 0, 10) ."</p>
+					<p><b>". substr($row["author"], 0, 10) ."</b></p><p class='w3-opacity'>". $row["pubDate"] ."</p><p class='w3-opacity'>". substr($row["majorTopic"], 0, 10) ."</p><p>". substr($row["summary"], 0, 10) ."</p>
 					<button class='w3-button w3-black w3-margin-bottom'   onclick=\"showArticle(" . $row["aID"] . ")\">View More</button>
 					</div></div>";
     }
