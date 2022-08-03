@@ -58,7 +58,7 @@ function deleteArticle($connection,$parameters){
 }
 
 function getAuthors($connection){
-	$sql = "select concat(firstName,\" \", lastName) as oName from UserResearchers ur inner join users u on ur.uID=u.uID
+	$sql = "select concat(firstName,\" \", lastName) as oName from UserResearchers ur inner join user u on ur.uID=u.userID
 			union
 			select oName from UserOrgDelegate uo inner join organizations o on uo.orgID=o.oID";
     $authors_result = $connection->query($sql);

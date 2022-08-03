@@ -56,7 +56,7 @@ if ($result->num_rows > 0)
       <form>
         <div class="w3-input" style="display: flex;align-items: center;">Publisher: <select name='author' id="author" class="w3-input w3-border">
 		<?php
-		$sql = "select concat(firstName,\" \", lastName) as oName from UserResearchers ur inner join Users u on ur.uID=u.uID
+		$sql = "select concat(firstName,\" \", lastName) as oName from UserResearchers ur inner join User u on ur.uID=u.userID
 			union
 			select oName from UserOrgDelegate uo inner join Organizations o on uo.orgID=o.oID";
 		$authors_result = $connection->query($sql);

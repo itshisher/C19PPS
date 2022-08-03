@@ -5,7 +5,7 @@
 <section class="index-intro">
         <h1>Welcome! 
             <?php
-                if(isset($_SESSION["username"]) && $_SESSION["userType"] == "orgDelegate") {
+                if(isset($_SESSION["username"]) && $_SESSION["userType"] == "organizationDele") {
                     echo $_SESSION["username"];
                     
                 }

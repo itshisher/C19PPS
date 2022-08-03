@@ -10,7 +10,7 @@ if (!isset($_GET['qry_id'])) {
         <li><a href="select-queries.php?qry_id=13">x</a></li>
         <li><a href="select-queries.php?qry_id=14">Articles of an author</a></li>
         <li><a href="select-queries.php?qry_id=15">All publishers</a></li>
-        <li><a href="select-queries.php?qry_id=16">x</a></li>
+        <li><a href="select-queries.php?qry_id=16">Authors and publications</a></li>
         <li><a href="select-queries.php?qry_id=17">x</a></li>
         <li><a href="select-queries.php?qry_id=18">x</a></li>
         <li><a href="select-queries.php?qry_id=19">x</a></li>
@@ -36,7 +36,7 @@ if (!isset($_GET['qry_id'])) {
 
   echo <<<EOD
   <section class="select-queries-section">
-    <a href="select-queries.php">Back</a>
+    <div><a href="select-queries.php">Back</a></div>
     <p>Please select an author to display information for.</p>
     <form action="select-queries.php" method="get">
       <input type="hidden" name="qry_id" value="$qry_id"/>
@@ -90,7 +90,7 @@ if (!isset($_GET['qry_id'])) {
   include_once 'header.php';
   echo '<section class="select-queries-section">';
 
-  echo '<a href="select-queries.php">Back</a>';
+  echo '<div><a href="select-queries.php">Back</a></div>';
 
   require_once 'includes/functions.php';
   display_qry_result($result, $headers);

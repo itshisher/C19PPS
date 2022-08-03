@@ -28,7 +28,7 @@ nav ul li a {
   font-size: 26px;
   color: #ffffff;
   text-decoration: none;
-  padding: 0 30px;
+  padding: 0 20px;
   text-transform: capitalize;
 }
 
@@ -41,6 +41,16 @@ section {
   background-color: #fff;
   width: 100%;
   padding: 20px;
+}
+
+section form div a {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+section a {
+  font-size: 24px;
+  font-weight: bold;
 }
 
 body {
@@ -78,6 +88,16 @@ p {
   margin-top: 20px;
 }
 
+.signup-form-style label {
+  display: inline-block;
+  text-align: right;
+  width: 100px;
+}
+
+.signup-form-style input {
+  vertical-align: top;
+}
+
 .signup-form-style {
   display: flexbox;
   justify-content: center;
@@ -86,4 +106,21 @@ p {
 /* query result */
 .qryres-table {
   border: 1px solid black;
+}
+
+table,
+td,
+th {
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  padding: 15px;
 }

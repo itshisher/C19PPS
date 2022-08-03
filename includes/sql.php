@@ -13,10 +13,10 @@ SELECT author, majorTopic, minorTopic, pubDate, cName AS citizenship
 FROM Articles
 LEFT JOIN (
   (
-    SELECT CONCAT(firstName, ' ', lastName) AS name, cName
-    FROM Users
+    SELECT CONCAT(uFName, ' ', uLName) AS name, cName
+    FROM User
     LEFT JOIN Countries on citizenshipID=cID
-    WHERE privilegeName='researcher'
+    WHERE userType='researchers'
   ) UNION (
     SELECT oName AS name, cName
     FROM Organizations
@@ -40,9 +40,9 @@ INNER JOIN (
   SELECT name, cID
   FROM (
     (
-        SELECT CONCAT(firstName, ' ', lastName) AS name, citizenshipID AS cID
-        FROM Users
-        WHERE privilegeName='researcher'
+        SELECT CONCAT(uFName, ' ', uLName) AS name, citizenshipID AS cID
+        FROM User
+        WHERE userType='researchers'
     ) UNION (
         SELECT oName AS name, countryID AS cID
         FROM Organizations
@@ -52,8 +52,37 @@ INNER JOIN (
 LEFT JOIN Countries ON Authors.cID=Countries.cID
 GROUP BY Articles.author;
 ",
-  16 => "",
-  17 => "",
+  16 => "
+SELECT Regions.rName,
+  Countries.cName,
+  COUNT(Authors.auName) AS nAuthors,
+  IFNULL(SUM(Authors.nPub), 0) AS totNumPub
+FROM Regions
+LEFT JOIN Countries ON Regions.rID=Countries.rID
+LEFT JOIN (
+  SELECT auName, cID, COUNT(Articles.aID) AS nPub
+  FROM (
+    (
+      SELECT CONCAT(uFName, ' ', uLName) AS auName, citizenshipID AS cID
+      FROM User
+      WHERE userType='researchers'
+    ) UNION (
+      SELECT oName AS auName, countryID AS cID FROM Organizations
+    )
+  ) _
+  LEFT JOIN Articles ON auName=Articles.author
+  GROUP BY auName
+) Authors ON Countries.cID=Authors.cID
+GROUP BY Countries.cID
+ORDER BY Regions.rName, nPub DESC;
+",
+  17 => "
+SELECT Regions.rName,
+  Countries.cName
+  SUM(population) AS cPop,
+  SUM(pstVax) AS cVax,
+  SUM(pstDeaths) AS cDeaths,
+",
   18 => "",
   19 => "",
   20 => "",
@@ -71,7 +100,7 @@ $arr_headers = array(
   13 => [],
   14 => ["Date of Publication", "Major Topic", "Minor Topic", "Summary", "Article"],
   15 => ["Author", "Country", "Number of Publications"],
-  16 => [],
+  16 => ["Region", "Country", "Number of Authors", "Number of Publications"],
   17 => [],
   18 => [],
   19 => [],

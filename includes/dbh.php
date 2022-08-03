@@ -10,3 +10,9 @@ $connection = mysqli_connect($serverName, $DBUserName, $DBPassword, $DBName);
 if(!$connection) {
     die("Connection failed: " . mysqli_connect_error());
 }
+
+// try{
+//     $connection = new PDO("mysql:host=$serverName; dbname=$DBName;", $DBUserName, $DBPassword);
+// } catch (PDOException $e) {
+//     die('Connection Failed: ' . $e -> getMessage());
+// }

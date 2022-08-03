@@ -22,8 +22,8 @@ session_start();
                 <li><a href="index.php">Home</a></li>
                 <li><a href="index_admin.php">Adminstrators</a></li>
                 <li><a href="index_researcher.php">Researchers</a></li>
-				<li><a href="articles.php">Articles</a></li>
                 <li><a href="index_orgDelegate.php">Delegates</a></li>
+                <li><a href="articles.php">Articles</a></li>
                 <?php
                     // check if useruid is exist in the website to make sure users are logged in
                     //userid is stored in the session
