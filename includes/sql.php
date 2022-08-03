@@ -83,7 +83,14 @@ SELECT Regions.rName,
   SUM(pstVax) AS cVax,
   SUM(pstDeaths) AS cDeaths,
 ",
-  18 => "",
+  18 => "
+SELECT timeSent, email, subject
+FROM Notifications N
+JOIN User U ON N.userID=U.userID
+WHERE timeSent >= <<;a;>>
+  AND timeSent <= <<;b;>>
+ORDER BY timeSent;
+",
   19 => "",
   20 => "",
 );
@@ -102,7 +109,7 @@ $arr_headers = array(
   15 => ["Author", "Country", "Number of Publications"],
   16 => ["Region", "Country", "Number of Authors", "Number of Publications"],
   17 => [],
-  18 => [],
+  18 => ["Time Sent", "Email", "Subject"],
   19 => [],
   20 => [],
 );
