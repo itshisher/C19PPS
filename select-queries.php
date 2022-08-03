@@ -13,7 +13,7 @@ if (!isset($_GET['qry_id'])) {
         <li><a href="select-queries.php?qry_id=16">Authors and publications</a></li>
         <li><a href="select-queries.php?qry_id=17">Virus progress all countries</a></li>
         <li><a href="select-queries.php?qry_id=18">All emails</a></li>
-        <li><a href="select-queries.php?qry_id=19">x</a></li>
+        <li><a href="select-queries.php?qry_id=19">Historical reports Canada</a></li>
         <li><a href="select-queries.php?qry_id=20">Subscriptions by author</a></li>
       </ol>
     </section>

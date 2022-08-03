@@ -147,7 +147,29 @@ WHERE timeSent >= <<;a;>>
   AND timeSent <= <<;b;>>
 ORDER BY timeSent;
 ",
-  19 => "",
+  19 => "
+SELECT Base.updatedDate,
+  SUM(Pop.population) AS cPop,
+  SUM(Vd1.nInjections) AS nInj1,
+  SUM(Vd2.nInjections) AS nInj2,
+  SUM(Vd3.nInjections) AS nInj3,
+  SUM(Vd4.nInjections) AS nInj4,
+  SUM(Vd.nInfections) AS cInf,
+  SUM(Vd1.nDeaths) AS nDeaths1,
+  SUM(Vd2.nDeaths) AS nDeaths2,
+  SUM(Vd3.nDeaths) AS nDeaths3,
+  SUM(Vd4.nDeaths) AS nDeaths4
+FROM ((SELECT pstID, updatedDate FROM VaccineData) UNION (SELECT pstID, updatedDate FROM Populations)) Base
+JOIN ProStaTe Pst ON Base.pstID=Pst.pstID AND Pst.cID=2 -- Canada
+LEFT JOIN (SELECT * FROM Populations) Pop ON Base.pstID=Pop.pstID AND Base.updatedDate=Pop.updatedDate
+LEFT JOIN (SELECT * FROM VaccineData) Vd ON Base.pstID=Vd.pstID AND Base.updatedDate=Vd.updatedDate
+LEFT JOIN (SELECT * FROM VaccineData WHERE vID=1) Vd1 ON Base.pstID=Vd1.pstID AND Base.updatedDate=Vd1.updatedDate AND Vd.vID=Vd1.vID
+LEFT JOIN (SELECT * FROM VaccineData WHERE vID=2) Vd2 ON Base.pstID=Vd2.pstID AND Base.updatedDate=Vd2.updatedDate AND Vd.vID=Vd2.vID
+LEFT JOIN (SELECT * FROM VaccineData WHERE vID=3) Vd3 ON Base.pstID=Vd3.pstID AND Base.updatedDate=Vd3.updatedDate AND Vd.vID=Vd3.vID
+LEFT JOIN (SELECT * FROM VaccineData WHERE vID=4) Vd4 ON Base.pstID=Vd4.pstID AND Base.updatedDate=Vd4.updatedDate AND Vd.vID=Vd4.vID
+GROUP BY Base.updatedDate
+ORDER BY Base.updatedDate DESC
+",
   20 => "
 (
   SELECT CONCAT(uFName, ' ', uLName) AS name, cName, COUNT(Sub.userID) AS numSub
@@ -183,7 +205,8 @@ $arr_headers = array(
   16 => ["Region", "Country", "Number of Authors", "Number of Publications"],
   17 => ["Region", "Country", "Injections", "Total Deaths", "Vaccinated Deaths", "Population"],
   18 => ["Time Sent", "Email", "Subject"],
-  19 => [],
+  19 => ["Report Date", "Population", "#Pfizer", "#Moderna", "#AstraZeneca", "#Johnson&Johnson",
+         "Infections", "Deaths Pfizer", "Deaths Moderna", "Deaths AstraZeneca", "Deaths Johnson&Johnson"],
   20 => ["Author", "Citizenship", "Number of Subscribers"],
 );
 ?>
